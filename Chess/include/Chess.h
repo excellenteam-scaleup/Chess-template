@@ -1,6 +1,9 @@
 #pragma once
 #include <iostream>
+#ifdef _WIN32
 #include <Windows.h>
+#endif
+
 #include <string>
 
 using std::cout;

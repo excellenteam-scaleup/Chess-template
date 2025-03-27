@@ -1,4 +1,10 @@
-	#include "Chess.h"
+#include "Chess.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+#ifdef _WIN32
 
 // clear the screen "cls"
 void Chess::clear() const 
@@ -18,81 +24,147 @@ void Chess::clear() const
 	);
 	SetConsoleCursorPosition(console, topLeft);
 }
+
 // create the GUI - ASCII art
 void Chess::setFrames() 
 { 
-	// set all to ' ' (space bar ascii value 32) instead of 0  
-	{
-		for (size_t row = 0; row < _SIZE; ++row)
-			for (size_t col = 0; col < _SIZE; ++col)
-				m_board[row][col] = 32;
-	}
-	// set out frame
-	{
-		m_board[0][0] = 201;  m_board[0][20] = 187;
-		m_board[20][0] = 200; m_board[20][20] = 188;
+	for (size_t row = 0; row < _SIZE; ++row)
+		for (size_t col = 0; col < _SIZE; ++col)
+			m_board[row][col] = 32;
 
-		for (size_t i = 1; i < 20; ++i)
-		{
-			m_board[0][i] = 205;
-			m_board[20][i] = 205;
-			m_board[i][0] = 186;
-			m_board[i][20] = 186;
-		}
+	m_board[0][0] = 201;  m_board[0][20] = 187;
+	m_board[20][0] = 200; m_board[20][20] = 188;
+
+	for (size_t i = 1; i < 20; ++i)
+	{
+		m_board[0][i] = 205;
+		m_board[20][i] = 205;
+		m_board[i][0] = 186;
+		m_board[i][20] = 186;
 	} 
 
-	// set in side frame 
+	m_board[2][2] = 218;  m_board[2][18] = 191;
+	m_board[18][2] = 192; m_board[18][18] = 217;
+
+	for (size_t i = 4; i < 17; i += 2)
 	{
-		m_board[2][2] = 218;  m_board[2][18] = 191;
-		m_board[18][2] = 192; m_board[18][18] = 217;
-
-		for (size_t i = 4; i < 17; i += 2)
-		{
-			m_board[2][i] = 194;
-			m_board[18][i] = 193;
-			m_board[i][2] = 195;
-			m_board[i][18] = 180;
-		}
-
-		for (size_t i = 2; i < 19; i += 2)
-			for (size_t j = 3; j < 19; j += 2)
-				m_board[i][j] = 196;
-		
-		for (size_t i = 3; i < 18; i += 2)
-			for (size_t j = 2; j < 19; j += 2)
-				m_board[i][j] = 179;
-
-		for (size_t i = 4; i < 17; i += 2)
-			for (size_t j = 4; j < 17; j += 2)
-				m_board[i][j] = 197;
-
-		for (size_t i = 4; i < 17; i += 2)
-			m_board[2][i] = 194;
-		for (size_t i = 4; i < 17; i += 2)
-			m_board[18][i] = 193;
-		for (size_t i = 4; i < 17; i += 2)
-			m_board[i][2] = 195;
-		for (size_t i = 4; i < 17; i += 2)
-			m_board[i][18] = 180;
+		m_board[2][i] = 194;
+		m_board[18][i] = 193;
+		m_board[i][2] = 195;
+		m_board[i][18] = 180;
 	}
 
-	// set nums and letters 
-	{
-		// nums 
-		for (size_t i = 3, t = 0; i < 19; i += 2, ++t)
-			m_board[1][i] = m_board[19][i] = ('1' + t);
-		// letters 
-		for (size_t i = 3, t = 0; i < 19; i += 2, ++t)
-			m_board[i][1] = m_board[i][19] = ('A' + t);
-	}
+	for (size_t i = 2; i < 19; i += 2)
+		for (size_t j = 3; j < 19; j += 2)
+			m_board[i][j] = 196;
+
+	for (size_t i = 3; i < 18; i += 2)
+		for (size_t j = 2; j < 19; j += 2)
+			m_board[i][j] = 179;
+
+	for (size_t i = 4; i < 17; i += 2)
+		for (size_t j = 4; j < 17; j += 2)
+			m_board[i][j] = 197;
+
+	for (size_t i = 4; i < 17; i += 2)
+		m_board[2][i] = 194;
+	for (size_t i = 4; i < 17; i += 2)
+		m_board[18][i] = 193;
+	for (size_t i = 4; i < 17; i += 2)
+		m_board[i][2] = 195;
+	for (size_t i = 4; i < 17; i += 2)
+		m_board[i][18] = 180;
+
+	for (size_t i = 3, t = 0; i < 19; i += 2, ++t)
+		m_board[1][i] = m_board[19][i] = ('1' + t);
+
+	for (size_t i = 3, t = 0; i < 19; i += 2, ++t)
+		m_board[i][1] = m_board[i][19] = ('A' + t);
 }
-// put the pieces from the boardString 
+
 void Chess::setPieces()
 {
 	for (size_t row = 0, t = 0; row < 8; ++row)
 		for (size_t col = 0; col < 8; ++col, ++t)
 			m_board[(3 + (row * 2))][(3 + (col * 2))] = ((m_boardString[t] == '#') ? 32 : m_boardString[t]);
 }
+
+#else // non-Windows
+
+void Chess::clear() const
+{
+	cout << "\033[2J\033[3J\033[H";
+}
+
+void Chess::setFrames()
+{
+	for (size_t row = 0; row < _SIZE; ++row)
+		for (size_t col = 0; col < _SIZE; ++col)
+			m_board[row][col] = ' ';
+
+	m_board[0][0] = '+';
+	m_board[0][20] = '+';
+	m_board[20][0] = '+';
+	m_board[20][20] = '+';
+
+	for (size_t i = 1; i < 20; ++i)
+	{
+		m_board[0][i] = '-';
+		m_board[20][i] = '-';
+		m_board[i][0] = '|';
+		m_board[i][20] = '|';
+	}
+
+	m_board[2][2] = '+';
+	m_board[2][18] = '+';
+	m_board[18][2] = '+';
+	m_board[18][18] = '+';
+
+	for (size_t i = 4; i < 17; i += 2)
+	{
+		m_board[2][i] = '+';
+		m_board[18][i] = '+';
+		m_board[i][2] = '+';
+		m_board[i][18] = '+';
+	}
+
+	for (size_t i = 2; i < 19; i += 2)
+		for (size_t j = 3; j < 19; j += 2)
+			m_board[i][j] = '-';
+
+	for (size_t i = 3; i < 18; i += 2)
+		for (size_t j = 2; j < 19; j += 2)
+			m_board[i][j] = '|';
+
+	for (size_t i = 4; i < 17; i += 2)
+		for (size_t j = 4; j < 17; j += 2)
+			m_board[i][j] = '+';
+
+	for (size_t i = 4; i < 17; i += 2)
+		m_board[2][i] = '+';
+	for (size_t i = 4; i < 17; i += 2)
+		m_board[18][i] = '+';
+	for (size_t i = 4; i < 17; i += 2)
+		m_board[i][2] = '+';
+	for (size_t i = 4; i < 17; i += 2)
+		m_board[i][18] = '+';
+
+	for (size_t i = 3, t = 0; i < 19; i += 2, ++t)
+		m_board[1][i] = m_board[19][i] = ('1' + t);
+
+	for (size_t i = 3, t = 0; i < 19; i += 2, ++t)
+		m_board[i][1] = m_board[i][19] = ('A' + t);
+}
+
+void Chess::setPieces()
+{
+	for (size_t row = 0, t = 0; row < 8; ++row)
+		for (size_t col = 0; col < 8; ++col, ++t)
+			m_board[(3 + (row * 2))][(3 + (col * 2))] = ((m_boardString[t] == '#') ? ' ' : m_boardString[t]);
+}
+
+#endif // WINDOWS
+
 // print the only the board to screen 
 void Chess::show() const 
 {
