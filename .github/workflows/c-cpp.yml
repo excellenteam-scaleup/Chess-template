@@ -27,11 +27,12 @@ jobs:
 
       - name: Create build directory
         run: |
-          ls
+          cd Chess
           mkdir build
 
       - name: Configure CMake
         run: |
+          cd Chess
           cd build
           cmake ..
       
