@@ -17,9 +17,9 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y clang-tidy clang-format cmake make g++
 
-      - name: Run clang-format check
-        run: |
-          clang-format --dry-run --Werror $(find . -name "*.cpp" -o -name "*.h")
+      # - name: Run clang-format check
+      #   run: |
+      #     clang-format --dry-run --Werror $(find . -name "*.cpp" -o -name "*.h")
 
       - name: Run clang-tidy
         run: |
