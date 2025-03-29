@@ -27,8 +27,8 @@ jobs:
 
       - name: Create build directory
         run: |
-        ls
-        mkdir build
+          ls
+          mkdir build
 
       - name: Configure CMake
         run: |
