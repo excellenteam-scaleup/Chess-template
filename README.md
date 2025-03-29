@@ -125,7 +125,7 @@ Any project that does not compile properly using these steps will not be graded.
 
 
 ## How to Submit an Exercise
-You are required to submit each exercise using "GitHub Classroom". To do this, you must upload a link to your "GitHub Classroom" repository via Moodle.
+You are required to submit each exercise using "GitHub Classroom". To do this, you must upload a link to your "GitHub Classroom" repository via Moodle..
 
 ### Pre-submission Checkup
 1. Make sure you've answered all the questions.
