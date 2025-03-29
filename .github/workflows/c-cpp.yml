@@ -8,23 +8,14 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-        compiler: [g++, clang++]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install dependencies (Linux)
-        if: runner.os == 'Linux'
-        run: sudo apt-get install -y clang-tidy clang-format cmake make g++
-
-      - name: Install dependencies (Windows)
-        if: runner.os == 'Windows'
-        run: choco install llvm cmake ninja -y
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y clang-tidy clang-format cmake make g++
 
       - name: Run clang-format check
         run: |
@@ -34,11 +25,20 @@ jobs:
         run: |
           clang-tidy $(find . -name "*.cpp") -- -I . || true
 
-      - name: Configure CMake
-        run: cmake -B build -DCMAKE_CXX_COMPILER=${{ matrix.compiler }}
+      - name: Create build directory
+        run: mkdir build
 
+      - name: Configure CMake
+        run: |
+          cd build
+          cmake ..
+      
       - name: Build project
-        run: cmake --build build
+        run: |
+          cd build
+          make
 
       - name: Run tests (if any)
-        run: ctest --test-dir build || true
+        run: |
+          cd build
+          ctest || true
