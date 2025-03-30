@@ -17,33 +17,18 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y clang-tidy clang-format cmake make g++
 
-      # - name: Run clang-format check
-      #   run: |
-      #     clang-format --dry-run --Werror $(find . -name "*.cpp" -o -name "*.h")
+    
 
       - name: Run clang-tidy
         run: |
           clang-tidy $(find . -name "*.cpp") -- -I . || true
 
-      # - name: Create build directory
-      #   run: |
-      #     cd Chess
-      #     mkdir build
+  
 
-      - name: Configure CMake
+      - name: Configure CMake, build project
         run: |
           cd Chess
           mkdir build
           cd build
           cmake ..
           make
-      
-      # - name: Build project
-      #   run: |
-      #     cd build
-      #     make
-
-      # - name: Run tests (if any)
-      #   run: |
-      #     cd build
-      #     ctest || true
