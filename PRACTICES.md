@@ -4,6 +4,11 @@ This document serves as the de facto practice guideline standard; any deviation 
 ## C++ Best Practices
 The following section presents general C++ practices.
 
+## Useful Links
+
+- [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)  
+- [C++ Best Practices (Lefticus)](https://lefticus.gitbooks.io/cpp-best-practices/content/03-Style.html)
+
 ### Incorrect or Missing Use of Exception Handling
 
 ✅ **Positive Example**:

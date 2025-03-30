@@ -54,7 +54,7 @@ Use the [CONTRIBUTING.md](CONTRIBUTING.md) file as your guideline for proper use
 Please follow the guidelines in this section strictly.
 
 - The repository should include a `CMakeLists.txt` file at the root directory.
-- The repository **MUST NOT** include any compiled binaries (e.g., build/, .o files, a.out, or any other generated executables).
+- The repository **MUST NOT** include any compiled binaries (e.g., build/, .o files, a.out, or any other generated executables).(put those file names in `.gitignore` file)
 
 <p align="center">
   <img src="./img/cpp-logo.png" alt="C++ Logo" width="100" height="100">
@@ -65,18 +65,20 @@ Please follow the guidelines in this section strictly.
 * The repository should include a `README.md` file at the root directory.
 * The repository should include a `CONTRIBUTING.md` file at the root directory.
 * You must have a `.gitignore` file, and there shouldn’t be any unnecessary files in the repository.
-* 🚨 **CRITICAL:** Repositories without a workflow file at `.github/workflows/pylint.yml` will not be graded. :(
+* 🚨 **CRITICAL:** Repositories without a workflow file at `.github/workflows/c-cpp.yml` will not be graded. :(
 * You must have an `img` directory at the root directory.
 
 #### Project's Files
 
-- The repository should include a `main.cpp` file (this should be the entry point of the repository) at the root.
+- The repository should include a `main.cpp` file in src directory.
 - The repository should include a `src` directory at the root.
   - All source files should be placed in the `src` directory.
+- The repository should include a `include` directory at the root.
+  - All `.h` files should be placed in the `include` directory.
 - The repository should include a `test` directory at the root.
   - All tests should be placed in the `test` directory.
 
-#### Project Tree
+
 #### Project Tree
 
 Project tree should match the following structure:
@@ -99,10 +101,8 @@ Project tree should match the following structure:
 ├── src
 │   ├── main.cpp
 │   ├── example.cpp
-│   ├── CMakeLists.txt
 │   ├── ...
 ├── include
-│   ├── CMakeLists.txt
 │   ├── example.h
 │   ├── ...
 ├── tests
@@ -118,7 +118,7 @@ mkdir -p build
 cd build
 cmake ..
 make
-./Chess  # Execute the program
+./Chess 
 ```
 
 Any project that does not compile properly using these steps will not be graded.
@@ -127,15 +127,27 @@ Any project that does not compile properly using these steps will not be graded.
 ## How to Submit an Exercise
 You are required to submit each exercise using "GitHub Classroom". To do this, you must upload a link to your "GitHub Classroom" repository via Moodle..
 
+### Branching and Pull Request Guidelines
+
+- 🚨 Your `main` branch **must remain clean and stable** at all times. Never push directly to `main`.  
+- Create a **new branch** from `main` for each exercise (e.g., `exercise1`, `feature/queen-movement`, etc.).  
+- Work on those branches and push your changes there.  
+- Once you're done, open a **Pull Request (PR)** from your branch where all the changes where made into `main`.  
+- In the PR, review your changes carefully using GitHub’s diff viewer.  
+- Make sure all checks pass (e.g., linter, build).  
+- After merging the PR into `main`, you can submit the repository link via Moodle.
+
+
 ### Pre-submission Checkup
-1. Make sure you've answered all the questions.
-2. Review and refactor your code for better readability (ideally, review your code one or two days later — sometimes it's better to review with fresh eyes).
-3. Ensure that all intended files are uploaded to Git and follow the structure convention outlined in the [Repository Structure](#repository-structure) section.
-4. Ensure that your code is running.
-5. Once you open a PR, review the changes **carefully**. You can leverage GitHub's built-in diff viewer.
-6. Wait and confirm that the linter test completed successfully. If the linter test fails, assess the errors and refactor accordingly — otherwise, each error will negatively impact your grade.
-7. Upload the repository link to Moodle.
-8. Good luck :)
+1. Make sure you've answered all the questions.  
+2. Review and refactor your code for better readability (ideally, review your code one or two days later — sometimes it's better to review with fresh eyes).  
+3. Ensure that all intended files are uploaded to Git and follow the structure convention outlined in the [Repository Structure](#repository-structure) section.  
+4. Ensure that your code is running.  
+5. Once you open a PR, review the changes **carefully**. You can leverage GitHub's built-in diff viewer.  
+6. Wait and confirm that the linter test completed successfully. If the linter test fails, assess the errors and refactor accordingly — otherwise, each error will negatively impact your grade.  
+7. Make sure you followed the [Branching and Pull Request Guidelines](#branching-and-pull-request-guidelines).  
+8. Upload the repository link to Moodle.  
+9. Good luck :)
 
 <!-- Center Excellenteam image -->
 <p align="center">
