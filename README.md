@@ -90,7 +90,7 @@ Project tree should match the following structure:
 │   ├── ...
 ├── .github
 │   └── workflows
-│       └── ci.yml
+│       └── c-cpp.yml
 ├── .gitignore
 ├── img
 │   ├── excellenteam.png
