@@ -220,10 +220,10 @@ bool Chess::isValid() const
     if (m_input.size() < 4)
         return false;
 
-    bool srcRow = (('A' <= m_input[0] && m_input[0] <= 'H') || ('a' <= m_input[0] && m_input[0] <= 'h'));
-    bool srcCol = ('1' <= m_input[1] && m_input[1] <= '8');
-    bool dstRow = (('A' <= m_input[2] && m_input[2] <= 'H') || ('a' <= m_input[2] && m_input[2] <= 'h'));
-    bool dstCol = ('1' <= m_input[3] && m_input[3] <= '8');
+    bool srcCol = (('A' <= m_input[0] && m_input[0] <= 'H') || ('a' <= m_input[0] && m_input[0] <= 'h'));
+    bool srcRow = ('1' <= m_input[1] && m_input[1] <= '8');
+    bool dstCol = (('A' <= m_input[2] && m_input[2] <= 'H') || ('a' <= m_input[2] && m_input[2] <= 'h'));
+    bool dstRow = ('1' <= m_input[3] && m_input[3] <= '8');
 
     return srcRow && srcCol && dstRow && dstCol;
 }
@@ -318,7 +318,7 @@ std::string Chess::getInput()
         if (isExit()) return "exit";
     }
 
-    // Normalise to lowercase row letter
+    // Normalise to lowercase column letter
     if ('A' <= m_input[0] && m_input[0] <= 'H') m_input[0] = m_input[0] - 'A' + 'a';
     if ('A' <= m_input[2] && m_input[2] <= 'H') m_input[2] = m_input[2] - 'A' + 'a';
 
