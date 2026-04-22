@@ -26,7 +26,7 @@ void Chess::clear() const
 }
 
 // ---------------------------------------------------------------------------
-// Platform-specific: build the ASCII-art board frame
+// Build the ASCII-art board frame (all platforms)
 //
 // Input format: <col_letter><row_number>  (e.g. "a1", "b4")
 //   - Letters A–H label COLUMNS (displayed on the top and bottom)
@@ -38,62 +38,6 @@ void Chess::clear() const
 //   col  = input[0] - 'a'   (0 = left)
 //   row  = input[1] - '1'   (0 = top)
 // ---------------------------------------------------------------------------
-
-#if defined(_WIN32)
-// Windows: use CP437 box-drawing characters for a nicer look
-void Chess::setFrames()
-{
-    for (int row = 0; row < BOARD_DISPLAY_SIZE; ++row)
-        for (int col = 0; col < BOARD_DISPLAY_SIZE; ++col)
-            m_board[row][col] = 32;   // space
-
-    // Outer border corners and edges
-    m_board[0][0] = 201;  m_board[0][20] = 187;
-    m_board[20][0] = 200; m_board[20][20] = 188;
-    for (int i = 1; i < 20; ++i) {
-        m_board[0][i]  = 205;
-        m_board[20][i] = 205;
-        m_board[i][0]  = 186;
-        m_board[i][20] = 186;
-    }
-
-    // Inner board corners
-    m_board[2][2] = 218;  m_board[2][18] = 191;
-    m_board[18][2] = 192; m_board[18][18] = 217;
-
-    // Inner T-junctions and crosses
-    for (int i = 4; i < 17; i += 2) {
-        m_board[2][i]  = 194; m_board[18][i] = 193;
-        m_board[i][2]  = 195; m_board[i][18] = 180;
-    }
-    for (int i = 2; i < 19; i += 2)
-        for (int j = 3; j < 19; j += 2)
-            m_board[i][j] = 196;
-    for (int i = 3; i < 18; i += 2)
-        for (int j = 2; j < 19; j += 2)
-            m_board[i][j] = 179;
-    for (int i = 4; i < 17; i += 2)
-        for (int j = 4; j < 17; j += 2)
-            m_board[i][j] = 197;
-
-    // Letters A–H on TOP and BOTTOM → label columns
-    for (int i = 3, t = 0; i < 19; i += 2, ++t)
-        m_board[1][i] = m_board[19][i] = static_cast<unsigned char>('A' + t);
-
-    // Numbers 1–8 on LEFT and RIGHT → label rows
-    for (int i = 3, t = 0; i < 19; i += 2, ++t)
-        m_board[i][1] = m_board[i][19] = static_cast<unsigned char>('1' + t);
-}
-
-void Chess::setPieces()
-{
-    for (int row = 0, t = 0; row < 8; ++row)
-        for (int col = 0; col < 8; ++col, ++t)
-            m_board[3 + row * 2][3 + col * 2] =
-                (m_boardString[t] == '#') ? 32 : static_cast<unsigned char>(m_boardString[t]);
-}
-
-#else  // Linux / macOS: plain ASCII
 
 void Chess::setFrames()
 {
@@ -110,7 +54,7 @@ void Chess::setFrames()
         m_board[i][20] = '|';
     }
 
-    // Inner board corners and junctions (all become '+')
+    // Inner board corners and junctions
     m_board[2][2] = m_board[2][18] = m_board[18][2] = m_board[18][18] = '+';
     for (int i = 4; i < 17; i += 2) {
         m_board[2][i]  = '+'; m_board[18][i] = '+';
@@ -144,8 +88,6 @@ void Chess::setPieces()
             m_board[3 + row * 2][3 + col * 2] =
                 (m_boardString[t] == '#') ? ' ' : static_cast<unsigned char>(m_boardString[t]);
 }
-
-#endif  // _WIN32
 
 // ---------------------------------------------------------------------------
 // Display helpers
